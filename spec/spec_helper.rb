@@ -1,5 +1,7 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'coveralls'
+require 'simplecov'
+SimpleCov.start 'rails'
 Coveralls.wear_merged! 'rails'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)

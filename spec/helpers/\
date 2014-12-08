@@ -1,0 +1,28 @@
+require 'spec_helper'
+
+describe LayoutHelper do
+  describe '#show_layout_flash?' do
+    it 'should return true if layout_flash is nil' do
+      @layout_flash = nil
+      expect(show_layout_flash?).to be_truthy
+    end
+    it 'should return layout_flash if layout_flash not nil' do
+      @layout_flash = "layout flash"
+      expect(show_layout_flash?).to eq(@layout_flash)
+    end
+  end
+  describe '#flash_messages' do
+    before do
+      flash[:notice] = 'notice flash'
+      @opts = {
+        :layout_flash => 'flash'
+      }
+    end
+    it 'should set @layout_flash from passed hash' do
+      flash_messages(@opts)
+      expect(@layout_flash).to eq('flash')
+    end
+    it 'should return div with flash' do
+      expect(flash_messages(@opts)).to eq('<div id="flash_notice">notice flash</div>)
+  end
+end

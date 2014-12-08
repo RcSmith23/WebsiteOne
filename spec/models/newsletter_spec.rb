@@ -36,7 +36,7 @@ describe Newsletter do
 
   describe 'sends mailings in instant mode' do
     before :each do 
-      receiver_users = FactoryGirl.create_list(:user, 2, receive_mailings: true)
+      @receiver_users = FactoryGirl.create_list(:user, 2, receive_mailings: true)
       non_receiver_users = FactoryGirl.create_list(:user, 2, receive_mailings: false)
       @newsletter = FactoryGirl.create(:newsletter)
       Newsletter.const_set('SEND_AS', :instant)
@@ -45,6 +45,18 @@ describe Newsletter do
     after :all do
       Newsletter.const_set('CHUNK_SIZE', 180)
       Newsletter.const_set('SEND_AS', :scheduler_job)
+    end
+=begin
+    it 'should call mail_receiver on User' do
+      @newsletter.do_send = true
+      @newsletter.save
+      expect(User).to have_received(:mail_receiver)
+    end
+=end
+    it 'should save id of last user sent to' do
+      @newsletter.do_send = true
+      @newsletter.save!
+      expect(@newsletter.last_user_id).to eq(@receiver_users[1].id) 
     end
 
     it 'after do_send is set to true' do
