@@ -119,10 +119,11 @@ class ProjectsController < ApplicationController
   end
 
   def pivotaltracker_url?
-    value = false
-    if pivotaltracker_url =~ /^(?:https|http|)[:\/]*www\.pivotaltracker\.com\/[n|s]\/projects\/(\d+)$/i 
-      value = true
+    match = pivotaltracker_url.match(/^(?:https|http|)[:\/]*www\.pivotaltracker\.com\/[n|s]\/projects\/(\d+)$/i)
+    if match.present?
+      true
+    else
+      false
     end
-    value
   end
 end
