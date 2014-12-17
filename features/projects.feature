@@ -91,23 +91,23 @@ Feature: Create and maintain projects
     When I click the very stylish "New Project" button
     Then I should see "Creating a new Project"
     And I should see a form with:
-      | Field               |
-      | Title               |
-      | Description         |
-      | Status              |
-      | GitHub link         |
-      | PivotalTracker link |
+      | Field                       |
+      | Title                       |
+      | Description                 |
+      | Status                      |
+      | GitHub link                 |
+      | PivotalTracker or JIRA link |
 
   Scenario: Saving a new project: success
     Given I am logged in
     And I am on the "Projects" page
     When I click the very stylish "New Project" button
     When I fill in:
-      | Field               | Text                                            |
-      | Title               | Title New                                       |
-      | Description         | Description New                                 |
-      | GitHub link         | http://www.github.com/abc                       |
-      | PivotalTracker link | http://www.pivotaltracker.com/s/projects/982890 |
+      | Field                       | Text                                            |
+      | Title                       | Title New                                       |
+      | Description                 | Description New                                 |
+      | GitHub link                 | http://www.github.com/abc                       |
+      | PivotalTracker or JIRA link | http://www.pivotaltracker.com/s/projects/982890 |
 
     And I select "Status" to "Active"
     And I click the "Submit" button
@@ -138,13 +138,13 @@ Feature: Create and maintain projects
     And I am on the "Projects" page
     When I click "hello saturn" within the List of Projects
     Then I should see:
-      | Text                         |
-      | hello saturn                 |
-      | greetings saturn folks       |
-      | My pitch...                  |
-      | ACTIVE                       |
-      | not linked to GitHub         |
-      | not linked to PivotalTracker |
+      | Text                                 |
+      | hello saturn                         |
+      | greetings saturn folks               |
+      | My pitch...                          |
+      | ACTIVE                               |
+      | not linked to GitHub                 |
+      | not linked to PivotalTracker or JIRA |
     And I should see "Created"
 
   Scenario: Edit page has a return link
@@ -158,7 +158,7 @@ Feature: Create and maintain projects
     And I am on the "Edit" page for project "hello mars"
     And I fill in "Description" with "Hello, Uranus!"
     And I fill in "GitHub link" with "https://github.com/google/instant-hangouts"
-    And I fill in "PivotalTracker link" with "https://www.pivotaltracker.com/s/projects/853345"
+    And I fill in "PivotalTracker or JIRA link" with "https://www.pivotaltracker.com/s/projects/853345"
     And I click the "Submit" button
     Then I should be on the "Show" page for project "hello mars"
     And I should see a flash "Project was successfully updated."
@@ -210,7 +210,7 @@ Feature: Create and maintain projects
   Scenario: Update Pivotal Tracker url if valid
     Given I am logged in
     And I am on the "Edit" page for project "hello mars"
-    And I fill in "PivotalTracker link" with "https://www.pivotaltracker.com/s/projects/853345"
+    And I fill in "PivotalTracker or JIRA link" with "https://www.pivotaltracker.com/s/projects/853345"
     And I click the "Submit" button
     Then I should be on the "Show" page for project "hello mars"
     And I should see a link to "hello mars" on Pivotal Tracker
@@ -225,7 +225,7 @@ Feature: Create and maintain projects
   Scenario: Reject PivotalTracker url update if invalid
     Given I am logged in
     And I am on the "Edit" page for project "hello mars"
-    And I fill in "PivotalTracker link" with "https://www.youtube.com/"
+    And I fill in "PivotalTracker or JIRA link" with "https://www.youtube.com/"
     And I click the "Submit" button
     Then I should see "Project was not updated."
 

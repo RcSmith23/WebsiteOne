@@ -1,17 +1,12 @@
 class PivotalTrackerUrlValidator < ActiveModel::Validator
   def validate(record)
     if record.pivotaltracker_url.present?
-      if(pivotal_url?(record))
+      if(record.pivotaltracker_url?)
         validate_pivotal_tracker_url(record)
       else
         validate_jira_url(record)
       end
     end  
-  end
-  def pivotal_url?(record)
-    url = record.pivotaltracker_url
-    url.match(/^(?:https|http|)[:\/]*www\.pivotaltracker\.com\/[n|s]\/projects\/(\d+)$/i) || \
-      url.match(/^\d+$/)
   end
 
   private

@@ -117,4 +117,12 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:title, :description, :pitch, :created, :status, :user_id, :github_url, :pivotaltracker_url, :pivotaltracker_id)
   end
+
+  def pivotaltracker_url?
+    value = false
+    if pivotaltracker_url =~ /^(?:https|http|)[:\/]*www\.pivotaltracker\.com\/[n|s]\/projects\/(\d+)$/i 
+      value = true
+    end
+    value
+  end
 end
